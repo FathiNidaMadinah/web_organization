@@ -108,7 +108,10 @@
     loginCheck(sessionStorage.getItem('id'));
     $.ajax({
         url: "/api/member/"+user_detail,
-        method: "GET", // First change type to method here
+        method: "GET",
+        headers: {
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        },
         success: function(response) {
           var data = response.data;
           if (data.tanggal_lahir == null) {

@@ -125,7 +125,10 @@
 
         $.ajax({
             url: "/api/vote/",
-            method: "GET", // First change type to method here
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            },
             success: function(response) {
                 var data = response.data;
                 data.forEach(vote =>{
@@ -143,7 +146,10 @@
 
         $.ajax({
             url: "/api/team/"+data_vote,
-            method: "GET", // First change type to method here
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            },
             success: function(response) {
                 var data = response.data;
                 data.forEach(element => {
@@ -215,6 +221,9 @@
                                 $.ajax({
                                     url: "/api/ballot",
                                     method: "POST",
+                                    headers: {
+                                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                    },
                                     data: {
                                         'user_id': sessionStorage.getItem('id'),
                                         'id_team':element.id,
@@ -307,7 +316,10 @@
 
                     $.ajax({
                         url: "/api/ballot/"+data_vote,
-                        method: "GET", // First change type to method here
+                        method: "GET",
+                        headers: {
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                        },
                         success: function(response) {
                             var data = response.data;
                             var ballotCount = {};

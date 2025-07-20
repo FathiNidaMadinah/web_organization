@@ -260,6 +260,9 @@
     $.ajax({
       url: origin+"/api/connection/"+connection,
       method: "GET",
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+      },
       success: function (response) {
         var data = response.data;
         if (data.data_divisi != null) {
@@ -276,6 +279,9 @@
         $.ajax({
           url: "/api/forum",
           method: "GET",
+          headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+          },
           data: {
             connection: connection,
             pagination : true,
@@ -446,6 +452,9 @@
       $.ajax({
         url: "/api/forum",
         method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        },
         data: {
           "user_id": sessionStorage.getItem('id'),
           "content": content,
@@ -524,6 +533,9 @@
         $.ajax({
           url: "/api/connection/" + urlParams.get('d'),
           method: "GET",
+          headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+          },
           success: function(response) {
             var data = response.data;
             if (data.data_divisi != null) {
@@ -541,6 +553,9 @@
         $.ajax({
           url: "/api/data/" + sessionStorage.getItem('id'),
           method: "GET",
+          headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+          },
           success: function(response) {
             var data = response.data;
             if (data.divisi_id != 1) {
@@ -564,6 +579,9 @@
       $.ajax({
         url: "/api/forum/" + forumId,
         method: "DELETE",
+        headers: {
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        },
         data:{
           "user_id":sessionStorage.getItem('id')
         },
@@ -583,6 +601,9 @@
       $.ajax({
         url: "/api/comment/" + commentId,
         method: "DELETE",
+        headers: {
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        },
         data:{
           "user_id":sessionStorage.getItem('id')
         },

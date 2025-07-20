@@ -119,7 +119,10 @@
         isLoading = true;
         $.ajax({
           url: "/api/announcement",
-          method: "GET", // First change type to method here
+          method: "GET", 
+          headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+          },
           data: {
             pagination : true,
             page: page,
@@ -198,6 +201,9 @@
         $.ajax({
           url: "/api/announcement/"+id,
           method: "delete",
+          headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+          },
           data:{
             "user_id": sessionStorage.getItem('id')
           }
@@ -213,7 +219,10 @@
         progres_forum = true;
         $.ajax({
           url: "/api/announcement",
-          method: "POST", // First change type to method here
+          method: "POST",
+          headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+          },
           data: {
               "user_id": sessionStorage.getItem('id'),
               "content": content

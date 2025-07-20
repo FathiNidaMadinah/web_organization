@@ -119,6 +119,9 @@
                 $.ajax({
                     url: origin+"/api/data",
                     method:'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    },
                     success: function (response) {
                         var data = response.data;
                         data.forEach(member => {
@@ -140,6 +143,9 @@
             $.ajax({
                 url: "/api/vote",
                 method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                },
                 data: {
                     "description": vote_name,
                     "voteStart":voteStart,
@@ -165,6 +171,9 @@
                         $.ajax({
                             url: "/api/team",
                             method: 'POST',
+                            headers: {
+                                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                            },
                             data: dataArray,
                             processData: false,
                             contentType: false,
@@ -181,6 +190,9 @@
                                         $.ajax({
                                             url: "/api/candidate",
                                             method: 'POST',
+                                            headers: {
+                                                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                            },
                                             data: {
                                                 "id_team": datax.id,
                                                 "user_id": item,
@@ -202,7 +214,10 @@
         });
         $.ajax({
             url: "/api/vote",
-            method: "GET", // First change type to method here
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            },
             success: function(response) {
                 var data = response.data
 
@@ -280,6 +295,9 @@
                         $.ajax({
                             url: "/api/vote/"+vote.id,
                             method: 'PUT',
+                            headers: {
+                                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                            },
                             data: {
                                 "description": $('#voteName-'+vote.id+'').val(),
                                 "voteStart": start.getTime(),
@@ -321,6 +339,9 @@
                                                 'user_id':tim_value
                                             },
                                             method: 'PUT',
+                                            headers: {
+                                                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                            },
                                             success:function(response){
                                                 if ($('#teamCandidate-'+vote.id+' div').length == loop) {
                                                     window.location.reload();
@@ -364,6 +385,9 @@
                             $.ajax({
                                 url: origin+"/api/data",
                                 method:'GET',
+                                headers: {
+                                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                },
                                 success: function (response) {
                                     var data = response.data;
                                     data.forEach(member => {
@@ -382,6 +406,9 @@
                         $.ajax({
                             url: "/api/vote/"+vote.id,
                             method: "DELETE",
+                            headers: {
+                                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                            },
                             success:function(response){
                                 window.location.reload();
                             }
@@ -417,6 +444,9 @@
                         $.ajax({
                             url: origin+"/api/data",
                             method:'GET',
+                            headers: {
+                                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                            },
                             success: function (response) {
                                 var data = response.data;
                                 data.forEach(member => {

@@ -18,53 +18,39 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::post('/login', 'LoginController@store');
-Route::post('/regis', 'RegisController@store');
-
-Route::middleware(['jwt.auth'])->group(function () {
-    Route::apiResources([
-        '/data' => 'AngController',
-    ]);
-    Route::post('/data/{id}', 'AngController@update');
-    Route::delete('/data/{id}', 'AngController@destroy');
-});
-
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
+    Route::middleware(['jwt.auth'])->group(function () {
+        Route::apiResources([
+            '/data' => 'AngController',
+            '/forum' => 'forumController',
+            '/announcement' => 'AnnController',
+            '/connection' => 'ConnectionController',
+            '/program' => 'ProgramController',
+            '/divisi' => 'DivisiController',
+            '/csv' => 'CsvController',
+            '/member' => 'MemberController',
+            '/username' => 'UserController',
+            '/candidate' => 'CandidateController',
+            '/vote' => 'VoteController',
+            '/ballot' => 'BallotController',
+            '/team' => 'TeamController',
+            '/detail' => 'DetailController',
+            '/dateFilter' => 'DateFilter',
+            '/page' => 'PageController',
+        ]);
+        Route::post('/data/{id}', 'AngController@update');
+        Route::delete('/data/{id}', 'AngController@destroy');
+        Route::post('/team/{id}', 'TeamController@updateNih');
+        Route::delete('/forum/{id}', 'forumController@destroy');
+        Route::post('/announcement', 'AnnController@store');
+        Route::delete('/announcement/{id}', 'AnnController@destroy');
+        Route::get('/comment/{id}', 'comController@show');
+        Route::post('/comment', 'comController@store');
+        Route::delete('/comment/{id}', 'comController@destroy');
+    });
+
     Route::apiResources([
-        '/forum' => 'forumController',
-        '/announcement' => 'AnnController',
-        '/connection' => 'ConnectionController',
-        '/program' => 'ProgramController',
-        '/divisi' => 'DivisiController',
-        '/csv' => 'CsvController',
-        '/member' => 'MemberController',
-        '/username' => 'UserController',
-        '/candidate' => 'CandidateController',
-        '/vote' => 'VoteController',
-        '/ballot' => 'BallotController',
-        '/team' => 'TeamController',
-        '/detail' => 'DetailController',
-        '/dateFilter' => 'DateFilter',
-        '/page' => 'PageController',
+        '/login' => 'LoginController',
+        '/regis' => 'RegisController',
     ]);
-
-    Route::post('/team/{id}', 'TeamController@updateNih');
-    Route::delete('/forum/{id}', 'forumController@destroy');
-    Route::post('/announcement', 'AnnController@store');
-    Route::delete('/announcement/{id}', 'AnnController@destroy');
-    Route::get('/comment/{id}', 'comController@show');
-    Route::post('/comment', 'comController@store');
-    Route::delete('/comment/{id}', 'comController@destroy');
 });
-
-Route::apiResource("/csv","App\Http\Controllers\\CsvController");
-
-Route::apiResource("/member","App\Http\Controllers\\memberController");
-
-Route::apiResource("/username","App\Http\Controllers\\UserController");
-
-Route::apiResource("/candidate","App\Http\Controllers\\CandidateController");
-
-// Route::apiResource("/vote","App\Http\Controllers\\VoteController");
-
-Route::apiResource("/ballot","App\Http\Controllers\\BallotController");

@@ -241,6 +241,9 @@
         $.ajax({
             url: "/api/data",
             method:'GET',
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            },
             success: function (response) {
                 var data = response.data;
                 data.forEach(element => {
@@ -268,6 +271,9 @@
                 url: url,
                 method: "POST",
                 data: formData,
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                },
                 success:function(response){
                     console.log(response);
                 }
@@ -285,11 +291,17 @@
                 $.ajax({
                     url: "/api/data/",
                     method: "GET",
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    },
                     success:function(response){
                         if (response.data.program_id == program_id) {
                             $.ajax({
                                 url: "/api/data/"+response.data.id,
                                 method: "POST",
+                                headers: {
+                                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                },
                                 data:{
                                     "program_id":1
                                 }
@@ -309,6 +321,9 @@
             $.ajax({
                 url: '/api/program',
                 method: "POST",
+                headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        },
                 data: formData,
                 success:function(response){
                     console.log(response);
@@ -328,6 +343,9 @@
             $.ajax({
                 url: '/api/divisi/',
                 method: "POST",
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                },
                 data: formData,
                 success:function(response){
                     console.log(response.data);
@@ -379,6 +397,9 @@
             $.ajax({
                 url: origin+"/api/data",
                 method:'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                },
                 success: function (response) {
                     var data = response.data;
                     var program = '';
@@ -447,6 +468,9 @@
                                     $.ajax({
                                         url: "/api/data/"+user,
                                         method: "POST", // First change type to method here    
+                                        headers: {
+                                            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                        },
                                         data: {
                                             divisi_id: id,
                                             role_id:4
@@ -460,6 +484,9 @@
                                     $.ajax({
                                         url: "/api/data/"+user,
                                         method: "POST", // First change type to method here    
+                                        headers: {
+                                            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                        },
                                         data: {
                                             divisi_id : 1,
                                             role_id:2
@@ -476,6 +503,9 @@
                                     $.ajax({
                                         url: "/api/data/"+user,
                                         method: "POST", // First change type to method here    
+                                        headers: {
+                                            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                        },
                                         data: {
                                             program_id: id,
                                             role_id:4
@@ -489,6 +519,9 @@
                                     $.ajax({
                                         url: "/api/data/"+user,
                                         method: "POST", // First change type to method here    
+                                        headers: {
+                                            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                        },
                                         data: {
                                             program_id : 1,
                                             role_id:2
@@ -600,6 +633,9 @@
                 $.ajax({
                 url: "/api/data/" + sessionStorage.getItem('id'),
                 method: "GET",
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                },
                 success: function(response) {
                     var data = response.data;
                     resolve({ divisi_id: data.divisi_id, program_id:data.program_id, role_id: data.role_id });

@@ -249,6 +249,9 @@
         $.ajax({
           url: "/api/forum",
           method: "GET",
+          headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+          },
           data: {
             pagination : true,
             page: page,
@@ -416,6 +419,9 @@
       $.ajax({
         url: "/api/forum",
         method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        },
         data: {
           "user_id": sessionStorage.getItem('id'),
           "content": content
@@ -492,6 +498,9 @@
       $.ajax({
         url: "/api/forum/" + forumId,
         method: "DELETE",
+        headers: {
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        },
         data:{
           "user_id":sessionStorage.getItem('id')
         },

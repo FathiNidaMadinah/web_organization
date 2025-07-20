@@ -1,7 +1,10 @@
 function loginCheck(user){
     $.ajax({
       url: "/api/data/"+user,
-      method: "GET", // First change type to method here
+      method: "GET",
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+      },
       success: function(response) {
         var data = response.data;
         if (data.avatar != null) {
@@ -27,14 +30,17 @@ function loginCheck(user){
   function sessionCheck(user){
     $.ajax({
       url: "/api/data/"+user,
-      method: "GET", // First change type to method here
+      method: "GET",
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+      },
       success: function(response) {
         var data = response.data;
-        if (data.role_id != sessionStorage.getItem('session')) {
-          alert("tejadi kesalahan silahkan login kembali!");
-          sessionStorage.clear();
-          window.location = window.location.origin+'/login';
-        }
+        // if (data.role_id != sessionStorage.getItem('session')) {
+        //   alert("tejadi kesalahan silahkan login kembali!");
+        //   sessionStorage.clear();
+        //   window.location = window.location.origin+'/login';
+        // }
       },
       error: function(status){
         alert("tejadi kesalahan silahkan login kembali!");

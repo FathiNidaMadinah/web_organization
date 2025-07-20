@@ -122,7 +122,10 @@
     
     $.ajax({
       url: "/api/data?member=true",
-      method: "GET", // First change type to method here
+      method: "GET",
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+      },
       success: function(response) {
         $('#members-count').text(response.data.length)
       }
@@ -153,7 +156,10 @@
   function fetchDiscuss(page){
     $.ajax({
       url: "/api/forum",
-      method: "GET", // First change type to method here
+      method: "GET",
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+      },
       success: function(response) {
         var data = response.data
         $('#post-count').text(response.data.length)
@@ -185,7 +191,10 @@
   function fetchAnnouncement(page){
     $.ajax({
       url: "/api/announcement",
-      method: "GET", // First change type to method here
+      method: "GET",
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+      },
       success: function(response) {
         var data_user = response.data
         for (let index = 0; index < page; index++) {

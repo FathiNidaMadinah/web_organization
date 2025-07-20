@@ -65,7 +65,10 @@
         loginCheck(sessionStorage.getItem('id'));
         $.ajax({
             url: "/api/data",
-            method: "GET", // First change type to method here
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            },
             data:{
                 'member':true
             },

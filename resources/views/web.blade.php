@@ -369,6 +369,9 @@
 			$.ajax({
                 url: origin+'/api/page',
                 method: "GET",
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                },
                 success: function(response) {
 					$('#aboutText').text(response.data.about_text);
                 }

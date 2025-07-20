@@ -153,7 +153,10 @@
     sessionCheck(sessionStorage.getItem('id'));
     $.ajax({
         url: "/api/data/"+sessionStorage.getItem('id'),
-        method: "GET", // First change type to method here
+        method: "GET",
+        headers: {
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        },
         success: function(response) {
           var data = response.data;
           if (data.data_anggota.tanggal_lahir == null) {
@@ -200,7 +203,10 @@
       $('#btnDelete').click(function(){
         $.ajax({
           url: "/api/data/"+sessionStorage.getItem('id'),
-          method: "POST", // First change type to method here    
+          method: "POST",
+          headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+          },
           data: {
             "avatar": "delete"
           },
@@ -218,7 +224,10 @@
           avatar.append('avatar', file_avatar);
           $.ajax({
           url: "/api/data/"+sessionStorage.getItem('id'),
-          method: "POST", // First change type to method here    
+          method: "POST",
+          headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+          },
           data: avatar,
           processData: false,
           contentType: false,
@@ -240,7 +249,10 @@
         event.preventDefault();
         $.ajax({
           url: "/api/data/"+sessionStorage.getItem('id'),
-          method: "POST", // First change type to method here    
+          method: "POST",
+          headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+          },
           data: {
               "username": user,
               "tanggal_lahir": tanggal,

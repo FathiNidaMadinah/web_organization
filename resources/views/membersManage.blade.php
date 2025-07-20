@@ -114,6 +114,9 @@
             $.ajax({
                 url: origin+"/api/csv",
                 method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                },
                 data: csv_file,
                 processData: false,
                 contentType: false,
@@ -129,6 +132,9 @@
             $.ajax({
                 url: origin+'/api/member',
                 method: "POST",
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                },
                 data: {
                     'nama': $('#memberName').val(),
                     'gender': $('#gender').val(),
@@ -142,7 +148,10 @@
         });
         $.ajax({
             url: "/api/data",
-            method: "GET", // First change type to method here
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            },
             data:{
                 'member':true
             },
@@ -224,6 +233,9 @@
                         $.ajax({
                             url: origin+"/api/member/"+element.id,
                             method: 'DELETE',
+                            headers: {
+                                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                            },
                             success: function (response) {
                                 $('#tr-'+element.id+'').remove();
                             }
@@ -234,6 +246,9 @@
                             $.ajax({
                                 url: origin+"/api/data/",
                                 method: 'GET',
+                                headers: {
+                                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                },
                                 success: function (response) {
                                     var all_data = response.data;
                                     var number = null;
@@ -246,6 +261,9 @@
                                                         $.ajax({
                                                             url: origin+"/api/data/"+id_role.id,
                                                             method: 'POST',
+                                                            headers: {
+                                                                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                                            },
                                                             data:{
                                                                 'role_id':number
                                                             },
@@ -255,6 +273,9 @@
                                                         $.ajax({
                                                             url: origin+"/api/data/"+id_role.id,
                                                             method: 'POST',
+                                                            headers: {
+                                                                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                                            },
                                                             data:{
                                                                 'role_id':number
                                                             },
@@ -265,6 +286,9 @@
                                                     $.ajax({
                                                         url: origin+"/api/data/"+id_role.id,
                                                         method: 'POST',
+                                                        headers: {
+                                                            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                                        },
                                                         data:{
                                                             'role_id':number
                                                         },
@@ -276,6 +300,9 @@
                                     $.ajax({
                                         url: origin+"/api/data/"+element.data_users.id,
                                         method: 'POST',
+                                        headers: {
+                                            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                        },
                                         data:{
                                             'role_id':1
                                         },
@@ -313,6 +340,9 @@
                             $.ajax({
                                 url: origin+"/api/data/"+element.data_users.id,
                                 method: 'POST',
+                                headers: {
+                                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                },
                                 data:{
                                     'role_id':role
                                 },
@@ -384,6 +414,9 @@
                         $.ajax({
                             url: origin+"/api/member/"+element.id,
                             method: 'PUT',
+                            headers: {
+                                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                            },
                             data:{
                                 'id': $('#edit_studentId-'+element.id+'').val()||null,
                                 'gender': $('#edit_gender-'+element.id+'').val()||null,

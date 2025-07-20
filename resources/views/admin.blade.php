@@ -77,7 +77,10 @@
         commentsData =  [0,0,0,0,0,0,0,0,0,0,0,0];
         $.ajax({
             url: "/api/dateFilter?filter=dateFilter",
-            method: "GET", // First change type to method here
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            },
             success: function(response) {
                 response.data.forums.forEach(data => {
                   for (let index = 0; index < bulan.length; index++) {
@@ -142,7 +145,10 @@
         });
         $.ajax({
           url: "/api/dateFilter?filter=memberFilter",
-          method: "GET", // First change type to method here
+          method: "GET",
+          headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+          },
           success: function(response) {
             var data = response.data;
             data.forEach(element => {
@@ -192,6 +198,9 @@
           $.ajax({
                 url: origin+'/api/page',
                 method: "POST",
+                headers: {
+                  'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                },
                 data:{
                   about_text:$('#aboutText').val()
                 },
