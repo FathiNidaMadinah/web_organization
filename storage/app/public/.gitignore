@@ -1,4 +1,3 @@
-images/**/*
+images/users-images/**/*
 csv/**/*
-!images/.gitkeep
 !csv/.gitkeep
