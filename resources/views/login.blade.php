@@ -124,6 +124,7 @@
           if (response.success === true){
             sessionStorage.setItem('session',response.session);
             sessionStorage.setItem('id',response.id);
+            sessionStorage.setItem('token', response.token);
             window.location.href = 'dashboard';
           }
           else if(response.message === 'password anda salah'){
