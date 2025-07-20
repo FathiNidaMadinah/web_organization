@@ -18,11 +18,19 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+Route::post('/login', 'LoginController@store');
+Route::post('/regis', 'RegisController@store');
+
+Route::middleware(['jwt.auth'])->group(function () {
+    Route::apiResources([
+        '/data' => 'AngController',
+    ]);
+    Route::post('/data/{id}', 'AngController@update');
+    Route::delete('/data/{id}', 'AngController@destroy');
+});
+
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::apiResources([
-        '/login' => 'LoginController',
-        '/regis' => 'RegisController',
-        '/data' => 'AngController',
         '/forum' => 'forumController',
         '/announcement' => 'AnnController',
         '/connection' => 'ConnectionController',
@@ -41,9 +49,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     ]);
 
     Route::post('/team/{id}', 'TeamController@updateNih');
-
-    Route::post('/data/{id}', 'AngController@update');
-    Route::delete('/data/{id}', 'AngController@destroy');
     Route::delete('/forum/{id}', 'forumController@destroy');
     Route::post('/announcement', 'AnnController@store');
     Route::delete('/announcement/{id}', 'AnnController@destroy');
