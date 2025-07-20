@@ -7,6 +7,7 @@ use App\Models\anggota;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class LoginController extends Controller
 {
@@ -25,14 +26,16 @@ class LoginController extends Controller
         if ($username!=null) {
             $decrypt_pass = $username->password;
             if (password_verify(md5($request->password), $decrypt_pass)){
-                return new AngResource(true, 'login success',$username, $username->id,$username->role_id);
+                $token = JWTAuth::fromUser($username);
+                return new AngResource(true, 'login success',$username, $username->id, $username->role_id, $token);
             }
             return new AngResource(false, 'Invalid password',null,null);
         }
         if ($member_id!=null) {
             $decrypt_pass = $member_id->password;
             if (password_verify(md5($request->password), $decrypt_pass)){
-                return new AngResource(true, 'login success',$member_id, $member_id->id,$member_id->role_id);
+                $token = JWTAuth::fromUser($member_id);
+                return new AngResource(true, 'login success',$member_id, $member_id->id,$member_id->role_id, $token);
             }
             return new AngResource(false, 'Invalid password',null,null);
         }

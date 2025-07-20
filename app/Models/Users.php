@@ -7,8 +7,9 @@ use App\Models\Divisi;
 use App\Models\Program;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Users extends Model
+class Users extends Model implements JWTSubject
 {
     use HasFactory;
 
@@ -23,5 +24,14 @@ class Users extends Model
     }
     public function dataProgram(){
         return $this->belongsTo(Program::class,'program_id','id')->select('id','program','leader_id');
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }
