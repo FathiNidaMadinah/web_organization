@@ -257,6 +257,10 @@
         
         $.ajax({
             url: "/api/vote/"+data_vote,
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            },
             success: function(response) {
                 var data = response.data;
                 var countDownEnds = data.voteEnds;
