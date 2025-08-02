@@ -165,7 +165,10 @@
       channel.bind('sent-comment', function(data) {
         $.ajax({
           url: "/api/comment/" + data.data['id_forum'],
-          method: "GET",
+          method: "GET",  
+          headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+          },
           success: function(response) {
             var comments = response.data;
             var commentCountElement = $('#count-comment-' + data.data['id_forum']);
@@ -350,6 +353,9 @@
       $.ajax({
         url: "/api/comment/" + forumId,
         method: "GET",
+        headers: {
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        },
         success: function(response) {
           var comments = response.data;
           var commentCountElement = $('#count-comment-' + forumId);
@@ -520,6 +526,9 @@
       $.ajax({
         url: "/api/comment/" + commentId,
         method: "DELETE",
+        headers: {
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        },
         data:{
           "user_id":sessionStorage.getItem('id')
         },
