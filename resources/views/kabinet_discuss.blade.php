@@ -428,6 +428,9 @@
       $.ajax({
         url: "/api/comment",
         method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        },
         data: {
           "id_forum": forumId,
           "user_id": sessionStorage.getItem('id'),

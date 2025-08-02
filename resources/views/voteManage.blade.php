@@ -327,6 +327,9 @@
                                 url: "/api/team/" + vote.data_team[item].id,
                                 data: editArray,
                                 method: 'POST',
+                                headers: {
+                                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                },
                                 processData: false,
                                 contentType: false,
                                 success:function(response){
@@ -472,6 +475,9 @@
             $.ajax({
                 url: "/api/topic/",
                 method: "post", // First change type to method here   
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                },
                 data:$("#topicForm").serialize(), 
                 success: function(response) {
                     if (response.success != false) {

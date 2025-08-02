@@ -286,7 +286,10 @@
                 var program_id = id.split('-')[2];
                 $.ajax({
                     url: "/api/"+program+"/"+program_id,
-                    method: "DELETE"
+                    method: "DELETE",
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    },
                 });
                 $.ajax({
                     url: "/api/data/",
@@ -322,8 +325,8 @@
                 url: '/api/program',
                 method: "POST",
                 headers: {
-            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-        },
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                },
                 data: formData,
                 success:function(response){
                     console.log(response);
@@ -450,6 +453,9 @@
                             $.ajax({
                                 url: link+id,
                                 method: "put", // First change type to method here    
+                                headers: {
+                                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                },
                                 data: {
                                     'leader_id': new_leader
                                 },
