@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\AngResource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class MemberController extends Controller
 {
@@ -47,6 +48,10 @@ class MemberController extends Controller
         return new AngResource(true,'data members',$data);
     }
     public function destroy($id){
+        $user = Auth::user();
+        if ($user->role_id != 1) {
+            abort(403, "You don't have access");
+        }
         $data = Anggota::find($id)->id;
         $image = Users::where('member_id','=',$data)->first();
         if ($image != null) {

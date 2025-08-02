@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Resources\AngResource;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class forumController extends Controller
 {
@@ -78,7 +79,7 @@ class forumController extends Controller
         return new AngResource(true,'message sent successfully', $forum);
     }
     public function destroy(Request $request,$id){
-        $role = Users::select('*')->where('id',$request->user_id)->first();
+        $user = Auth::user();
         $data = Forum::find($id);
         
         $connection = Connection::select('*')->where('id',$data->connection_id)->first();
@@ -93,8 +94,8 @@ class forumController extends Controller
             $leader = $Program->leader_id;
         }
 
-        if ($role->role_id != 1 && $role->id != $leader) {
-            return new AngResource(false,"You don't have access", null);
+        if ($user->role_id != 1 && $user->id != $leader) {
+            abort(403, "You don't have access");
         }
         $data-> delete();
 

@@ -6,6 +6,7 @@ use App\Models\Divisi;
 use Illuminate\Http\Request;
 use App\Http\Resources\AngResource;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class DivisiController extends Controller
 {
@@ -49,6 +50,10 @@ class DivisiController extends Controller
         return new AngResource(true,'data divisi',$data);
     }
     public function destroy($id){
+        $user = Auth::user();
+        if ($user->role_id != 1) {
+            abort(403, "You don't have access");
+        }
         $data = Divisi::find($id);
         $data-> delete();
         

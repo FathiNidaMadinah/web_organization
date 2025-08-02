@@ -8,6 +8,7 @@ use App\Models\Announcement;
 use Illuminate\Http\Request;
 use App\Http\Resources\AngResource;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class AnnController extends Controller
 {
@@ -64,9 +65,9 @@ class AnnController extends Controller
         return new AngResource(true,"announcement send successfully", $announcement);
     }
     public function destroy(Request $request,$id){
-        $role = Users::select('role_id')->where('id',$request->user_id)->first();
-        if ($role->role_id != 1) {
-            return new AngResource(false,"You don't have access", null);
+        $user = Auth::user();
+        if ($user->role_id != 1) {
+            abort(403, "You don't have access");
         }
         $data = Announcement::find($id);
         $data-> delete();

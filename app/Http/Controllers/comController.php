@@ -74,7 +74,7 @@ class comController extends Controller
         }
 
         if ($user->role_id != 1 && $user->id != $leader) {
-            return new AngResource(false,"You don't have access", null);
+            abort(403, "You don't have access");
         }
         $data = comment::find($id);
         $data-> delete();

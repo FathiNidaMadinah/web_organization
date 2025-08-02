@@ -9,6 +9,7 @@ use App\Http\Resources\AngResource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class AngController extends Controller
 {
@@ -115,6 +116,10 @@ class AngController extends Controller
         return new AngResource(true, "data berhasil di ubah", Users::find($id));
     }
     public function destroy($id){
+        $user = Auth::user();
+        if ($user->role_id != 1) {
+            abort(403, "You don't have access");
+        }
         $data = Users::find($id);
 
         Storage::delete('storage/images/users-images'.$data->avatar);

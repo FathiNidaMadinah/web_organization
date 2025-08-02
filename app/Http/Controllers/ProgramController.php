@@ -6,6 +6,7 @@ use App\Http\Resources\AngResource;
 use App\Models\Program;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class ProgramController extends Controller
 {
@@ -50,6 +51,10 @@ class ProgramController extends Controller
         return new AngResource(true,'data program',$data);
     }
     public function destroy($id){
+        $user = Auth::user();
+        if ($user->role_id != 1) {
+            abort(403, "You don't have access");
+        }
         $data = Program::find($id);
         $data-> delete();
         

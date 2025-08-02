@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\AngResource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class VoteController extends Controller
 {
@@ -40,6 +41,10 @@ class VoteController extends Controller
         return new AngResource(true,"create new vote successfully", $data);
     }
     public function destroy($id){
+        $user = Auth::user();
+        if ($user->role_id != 1) {
+            abort(403, "You don't have access");
+        }
         $data = Vote::with('dataTeam')->find($id);
         foreach ($data->dataTeam as $tim) {
             Storage::delete('public/images/banner/'.$tim->banner_image);
