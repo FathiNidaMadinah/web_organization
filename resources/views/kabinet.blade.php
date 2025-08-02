@@ -541,6 +541,9 @@
         $.ajax({
             url: origin+"/api/connection",
             method:'GET',
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            },
             success: function (response) {
                 var data = response.data;
                 data.forEach(connection => {
