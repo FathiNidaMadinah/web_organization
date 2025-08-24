@@ -18,6 +18,10 @@ class MemberController extends Controller
         return new AngResource(true,'data members',$data);
     }
     public function store(Request $request){
+        $user = Auth::user();
+        if ($user->role_id != 1 && $user->role_id != 5) {
+            abort(403, "You don't have access");
+        }
         $validator = Validator::make($request->all(),[
             'nama'=>'required',
             'gender'=>'required',
@@ -49,7 +53,7 @@ class MemberController extends Controller
     }
     public function destroy($id){
         $user = Auth::user();
-        if ($user->role_id != 1) {
+        if ($user->role_id != 1 && $user->role_id != 5) {
             abort(403, "You don't have access");
         }
         $data = Anggota::find($id)->id;
@@ -63,6 +67,10 @@ class MemberController extends Controller
         return new AngResource(true,'success delete a member', $data);
     }
     public function update(Request $request, $id){
+        $user = Auth::user();
+        if ($user->role_id != 1 && $user->role_id != 5) {
+            abort(403, "You don't have access");
+        }
         $key = collect($request->all())->keys();
         $data = Anggota::find($id);
 

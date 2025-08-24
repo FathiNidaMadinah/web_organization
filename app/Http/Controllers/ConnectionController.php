@@ -16,7 +16,11 @@ class ConnectionController extends Controller
 
         return new AngResource(true,'data Connection',$data);
     }
-    public function store(Request $request){
+    public function store(Request $request){    
+        $user = Auth::user();
+        if ($user->role_id != 1 && $user->role_id != 5) {
+            abort(403, "You don't have access");
+        }
         if ($request->divisi_id != null ) {
             Connection::create([
                 'divisi_id'=>$request->divisi_id

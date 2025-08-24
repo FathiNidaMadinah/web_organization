@@ -12,6 +12,10 @@ use App\Http\Resources\AngResource;
 class DateFilter extends Controller
 {
     public function index(Request $request){
+        $user = Auth::user();
+        if ($user->role_id != 1 && $user->role_id != 5) {
+            abort(403, "You don't have access");
+        }
         if ($request->filter == "dateFilter") {
             $forums = Forum::get();
             $comments = Comment::get();

@@ -16,6 +16,10 @@ class DivisiController extends Controller
         return new AngResource(true,'data Divisi',$data);
     }
     public function store(Request $request){
+        $user = Auth::user();
+        if ($user->role_id != 1 && $user->role_id != 5) {
+            abort(403, "You don't have access");
+        }
         $validator = Validator::make($request->all(), [
             'divisi' => 'required', 
             'leader_id' => 'required', 
@@ -34,6 +38,10 @@ class DivisiController extends Controller
         return new AngResource(true,'success create new divisi',$data);
     }
     public function update(Request $request, $id){
+        $user = Auth::user();
+        if ($user->role_id != 1 && $user->role_id != 5) {
+            abort(403, "You don't have access");
+        }
         $update = Divisi::find($id)->update([
             'leader_id'=>$request->leader_id
         ]);
@@ -51,7 +59,7 @@ class DivisiController extends Controller
     }
     public function destroy($id){
         $user = Auth::user();
-        if ($user->role_id != 1) {
+        if ($user->role_id != 1 && $user->role_id != 5) {
             abort(403, "You don't have access");
         }
         $data = Divisi::find($id);

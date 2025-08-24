@@ -47,8 +47,11 @@ class forumController extends Controller
         return new AngResource(true,'data forum', $forum);
     }
     public function store(Request $request){
+        $user = Auth::user();
+        if ($user->role_id != 1 && $user->role_id != 5) {
+            abort(403, "You don't have access");
+        }
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required', 
             'content' => 'required', 
         ]);
         if ($validator->fails()) {
@@ -56,13 +59,13 @@ class forumController extends Controller
         }
         if ($request->connection != null) {
             Forum::create([
-                'user_id'=> $request->user_id,
+                'user_id'=> $user->id,
                 'content'=> $request->content,
                 'connection_id'=> $request->connection,
             ]);
         }else{
             Forum::create([
-                'user_id'=> $request->user_id,
+                'user_id'=> $user->id,
                 'content'=> $request->content,
                 'connection_id'=> '1',
             ]);

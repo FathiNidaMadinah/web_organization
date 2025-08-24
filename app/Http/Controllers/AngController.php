@@ -54,6 +54,12 @@ class AngController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $user = Auth::user();
+        if ($user->role_id != 1 && $user->role_id != 5) {
+            if ($user->id != $id) {
+                abort(403, "You don't have access");
+            }
+        }
         $validator = Validator::make($request->all(),[
             'username'     => 'unique:users,username',
         ]);
@@ -117,7 +123,7 @@ class AngController extends Controller
     }
     public function destroy($id){
         $user = Auth::user();
-        if ($user->role_id != 1) {
+        if ($user->role_id != 1 && $user->role_id != 5) {
             abort(403, "You don't have access");
         }
         $data = Users::find($id);

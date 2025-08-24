@@ -73,7 +73,7 @@ class comController extends Controller
             $leader = $Program->leader_id;
         }
 
-        if ($user->role_id != 1 && $user->id != $leader) {
+        if ($user->role_id != 1 && $user->role_id != 5 && $user->id != $leader) {
             abort(403, "You don't have access");
         }
         $data = comment::find($id);
